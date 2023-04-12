@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 15:29:54 by pforesti          #+#    #+#             */
-/*   Updated: 2023/04/11 16:19:20 by pforesti         ###   ########.fr       */
+/*   Updated: 2023/04/12 10:03:43 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,9 @@ class BitcoinExchange {
     BitcoinExchange(BitcoinExchange const & src);
     ~BitcoinExchange();
     
-
-    
-    void    setData(std::string const filePath);
+    void                            setData(std::string const filePath);
     std::map<std::string, double>   getData() const;
-    int  getValueByDate(std::string const date);
+    double                          getValueByDate(std::string const date);
     
     BitcoinExchange & operator=(BitcoinExchange const & rhs);
 };

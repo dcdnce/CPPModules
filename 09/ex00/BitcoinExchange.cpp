@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 15:32:16 by pforesti          #+#    #+#             */
-/*   Updated: 2023/04/11 16:20:23 by pforesti         ###   ########.fr       */
+/*   Updated: 2023/04/11 16:2 09:19:25 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ std::map<std::string, double>   BitcoinExchange::getData() const {
     return (_data);
 }
 
-int BitcoinExchange::getValueByDate(std::string const date) {
+double BitcoinExchange::getValueByDate(std::string const date) {
     std::map<std::string, double>::iterator it;
     
     it = _data.lower_bound(date);
@@ -42,13 +42,7 @@ int BitcoinExchange::getValueByDate(std::string const date) {
         if (it != _data.begin())
             it = --it;
             
-    if (it == _data.end()) {
-        std::cout << "it.end()" << std::endl;
-        return (0);
-    }
-
-    std::cout << "For " << date << " found -> " << it->first << std::endl;
-    return (0);
+    return (it->second);
 }
 
 BitcoinExchange& BitcoinExchange::operator=(BitcoinExchange const & rhs) {

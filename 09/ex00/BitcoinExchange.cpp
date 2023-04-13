@@ -12,7 +12,7 @@
 
 #include "BitcoinExchange.hpp"
 
-BitcoinExchange::BitcoinExchange() {}
+BitcoinExchange::BitcoinExchange() : _data() {}
 BitcoinExchange::BitcoinExchange(BitcoinExchange const & src) {*this = src;}
 BitcoinExchange::~BitcoinExchange() {}
 

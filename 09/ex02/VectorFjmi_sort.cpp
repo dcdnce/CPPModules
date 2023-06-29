@@ -1,14 +1,16 @@
-#include "FJMI.hpp"
+#include "VectorFjmi.hpp"
 
 #include <iostream>
 #include <algorithm>
 
 //https://github.com/PunkChameleon/ford-johnson-merge-insertion-sort
 //ford-johnson-merge-insertion-sort
-void FJMI::sort()
+void VectorFjmi::sort()
 {
-	sequence_size = sequence.size();
-	if (sequence_size % 2)
+	_startChrono();
+
+	_sequence_size = sequence.size();
+	if (_sequence_size % 2)
 	{
 		_trail = sequence.back();
 		sequence.pop_back();
@@ -22,13 +24,15 @@ void FJMI::sort()
 
 	// Merge Sort -> insert unsorted side into sorted side
 	_mergeSort(pairs);
+
+	_endChrono();
 }
 
-std::vector<std::pair<size_t, size_t> >	FJMI::_makeSortedPairs()
+std::vector<std::pair<size_t, size_t> >	VectorFjmi::_makeSortedPairs()
 {
 	std::vector<std::pair<size_t, size_t> > pairs;
 
-	for (size_t i = 0 ; i+1 < sequence_size ; i += 2)
+	for (size_t i = 0 ; i+1 < _sequence_size ; i += 2)
 	{
 		std::pair<size_t, size_t> curr = std::make_pair(sequence[i], sequence[i+1]);	
 		if (curr.first > curr.second)
@@ -39,7 +43,7 @@ std::vector<std::pair<size_t, size_t> >	FJMI::_makeSortedPairs()
 	return (pairs);
 }
 
-void	FJMI::_insertionSort(std::vector<std::pair<size_t, size_t> > & pairs, size_t n)
+void	VectorFjmi::_insertionSort(std::vector<std::pair<size_t, size_t> > & pairs, size_t n)
 {
 	if (n <= 1)
 		return ;
@@ -59,7 +63,7 @@ void	FJMI::_insertionSort(std::vector<std::pair<size_t, size_t> > & pairs, size_
 }
 
 
-void	FJMI::_mergeSort(std::vector<std::pair<size_t,size_t> >& pairs)
+void	VectorFjmi::_mergeSort(std::vector<std::pair<size_t,size_t> >& pairs)
 {
 	std::vector<size_t> pending;
 	std::vector<size_t> sorted;
@@ -109,26 +113,26 @@ void	FJMI::_mergeSort(std::vector<std::pair<size_t,size_t> >& pairs)
 	}
 
 	// Insert trail if it exists
-	if (sequence_size % 2)
+	if (_sequence_size % 2)
 		sorted.insert(sorted.begin() + _binarySearch(sorted, _trail), _trail);
 
 	sequence = sorted;
 }
 
-std::vector<size_t>	FJMI::_computeJacobsthalSequence(size_t const arrayLength)
+std::vector<size_t>	VectorFjmi::_computeJacobsthalSequence(size_t const arrayLength)
 {
-	std::vector<size_t> jacobsthalsequence;
+	std::vector<size_t> jacobsthal_sequence;
 	size_t	currValue;
 	size_t currIndex = 3;
 
 
 	for (; (currValue = _jacobsthal(currIndex)) < arrayLength - 1 ; currIndex++)
-		jacobsthalsequence.insert(jacobsthalsequence.begin(), currValue);
+		jacobsthal_sequence.insert(jacobsthal_sequence.begin(), currValue);
 
-	return (jacobsthalsequence);
+	return (jacobsthal_sequence);
 }
 
-size_t FJMI::_jacobsthal(size_t n)
+size_t VectorFjmi::_jacobsthal(size_t n)
 {
 	if (n == 0)
 		return (0);
@@ -140,7 +144,7 @@ size_t FJMI::_jacobsthal(size_t n)
 }
 
 
-size_t	FJMI::_binarySearch(std::vector<size_t> nums, size_t target)
+size_t	VectorFjmi::_binarySearch(std::vector<size_t> nums, size_t target)
 {
 	int lo = 0;
 	int mid;

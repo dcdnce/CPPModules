@@ -6,13 +6,16 @@
 #    By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 11:49:25 by pforesti          #+#    #+#              #
-#    Updated: 2023/06/29 14:41:18 by pforesti         ###   ########.fr        #
+#    Updated: 2023/06/29 16:50:16 by pforesti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = 	main.cpp \
-		FJMI.cpp \
-		FJMI_sort.cpp
+		VectorFjmi.cpp \
+		VectorFjmi_sort.cpp \
+		ListFjmi.cpp \
+		ListFjmi_sort.cpp
+
 
 OBJS = $(SRCS:.cpp=.o)
 

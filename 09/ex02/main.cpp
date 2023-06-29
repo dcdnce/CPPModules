@@ -14,33 +14,39 @@
 #include <string>
 #include <sstream>
 
-#include "FJMI.hpp"
+#include "VectorFjmi.hpp"
+#include "ListFjmi.hpp"
 
 static inline int printError(void);
 template<typename T>
-static inline bool isSort(T array);
+static inline bool isSorted(T array);
+static inline void print(std::string const state, std::vector<size_t> sequence);
 
 int main(int ac, char *av[])
 {
     if (ac <= 2)
         return (printError());
 
-    FJMI    fjmi;
-
-	for (int i = 1 ; i < ac ; i++)	
-	{
-		if (av[i][0] == '-')
-			throw std::exception();
-		fjmi.sequence.push_back(std::stoul(av[i]));
-	}
-
+    VectorFjmi    VectorFjmi;
+    ListFjmi    ListFjmi;
+	
     try {
-        fjmi.startChrono();
-        fjmi.sort();
-        fjmi.endChrono();
-        fjmi.printBefore();
-        fjmi.printAfter();
-        fjmi.printDuration();
+        for (int i = 1 ; i < ac ; i++)	
+        {
+            if (av[i][0] == '-')
+                throw std::exception();
+            size_t num = std::stoul(av[i]);
+            VectorFjmi.sequence.push_back(num);
+            ListFjmi.sequence.push_back(num);
+        }
+        print("Before: ", VectorFjmi.sequence);
+        VectorFjmi.sort();
+        ListFjmi.sort();
+        print("After: ", VectorFjmi.sequence);
+        VectorFjmi.printDuration();
+        ListFjmi.printDuration();
+        if (!isSorted(VectorFjmi.sequence) || !isSorted(ListFjmi.sequence))
+            throw std::exception();
     } catch (std::exception & e) {return(printError());}
 
     return (0);
@@ -53,10 +59,27 @@ static inline int printError(void)
 }
 
 template<typename T>
-static inline bool isSort(T array)
+static inline bool isSorted(T array)
 {
-    for (typename T::iterator it = array.begin() + 1; it != array.end() ; it++)
-        if (*(it - 1) > *it)
+    typename T::iterator it1 = array.begin();
+    typename T::iterator it2 = array.begin();
+    std::advance(it2, 1);
+    for (size_t i = 1; i < array.size() ; i++)
+    {
+        if (*(it1) > *it2)
             return (false);
+        it1++;
+        it2++;
+    }
     return (true);
+}
+
+static inline void	print(std::string const state, std::vector<size_t> sequence)
+{
+	std::cout << state;
+	for (size_t i = 0 ; i < (sequence.size() <= 10 ? sequence.size() : 5) ; i++)
+		std::cout << " " << sequence[i];
+	if (sequence.size() > 10)
+		std::cout << " [...]";
+	std::cout << std::endl;
 }

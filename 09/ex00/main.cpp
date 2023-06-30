@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 11:00:13 by pforesti          #+#    #+#             */
-/*   Updated: 2023/06/30 14:14:33 by pforesti         ###   ########.fr       */
+/*   Updated: 2023/06/30 15:40:09 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,36 @@ static inline int printError(std::string const str);
 bool isValidDate(std::string const & str);
 void outputDataByExchangeRate(BitcoinExchange & be, std::ifstream & ifs);
 
+/* input.txt example */
+// date | value
+// 2009-03-19 | 1.2
+// 2011-01-03 | 3
+// 2011-01-03 | 2
+// 2011-01-03 | 1
+// 2011-01-03 | 1.2
+// 2022-3-1 | 1
+// 2022/03/01 | 1
+// 2011-01-09 | 1
+// 2012-01-11 | -1
+// 2001-42-42
+// 2001-02-02 | 17
+// 2012-01-11 | 1
+// 2012-01-11 | 2147483648
+// 2032-01-11 | 2
+
 int main(int ac, char *av[]) {
     if (ac != 2)
-        return (printError("could not open file"));
+        return (printError("wrong number of arguments"));
 
     BitcoinExchange be;
-    be.setData("./data.csv");
+    try {
+        be.setData("./data.csv");
+    } catch (std::exception & e) {return printError("could not open data file");}
     //std::cout << be << std::endl;
 
     std::ifstream ifs(av[1]);
     if (!ifs.is_open())
-        return (printError("could not open file"));
+        return (printError("could not open input file"));
 
     outputDataByExchangeRate(be, ifs);
 

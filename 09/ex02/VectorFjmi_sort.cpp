@@ -154,7 +154,7 @@ size_t	VectorFjmi::_binarySearch(std::vector<size_t> nums, size_t target)
 	{
 		mid = lo + (hi - lo) / 2;
 		if (target == nums[mid])
-			throw std::exception();
+			return (mid);
 		else if (target < nums[mid])
 			hi = mid - 1;
 		else

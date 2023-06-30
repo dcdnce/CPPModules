@@ -6,7 +6,7 @@
 /*   By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 11:00:13 by pforesti          #+#    #+#             */
-/*   Updated: 2023/04/12 11:00:14 by pforesti         ###   ########.fr       */
+/*   Updated: 2023/06/30 14:14:33 by pforesti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void outputDataByExchangeRate(BitcoinExchange & be, std::ifstream & ifs) {
             continue ;
         }
         if (valueFloat > 1000.f) {
-            printError("too large a number.");
+            printError("number too large.");
             continue;
         }
 

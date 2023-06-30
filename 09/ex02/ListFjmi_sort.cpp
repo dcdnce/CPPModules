@@ -55,15 +55,18 @@ void ListFjmi::_insertionSort(std::list<std::pair<size_t, size_t> >& pairs, size
 
     std::list<std::pair<size_t, size_t> >::iterator it = pairs.begin();
     std::advance(it, n - 1);
-    std::pair<size_t, size_t> to_insert = *it;
-    std::list<std::pair<size_t, size_t> >::iterator pos = it;
+    std::list<std::pair<size_t, size_t> >::iterator pos = pairs.begin();
+    std::advance(pos, n - 2);
 
-    --pos;
-    while (pos != pairs.begin() && pos->second > to_insert.second)
+    std::pair<size_t, size_t> to_insert = *it;
+	int	i = n - 2;
+
+    while (i >= 0 && pos->second > to_insert.second)
     {
         *it = *pos;
         --it;
         --pos;
+		i--;
     }
 
     *it = to_insert;
@@ -160,9 +163,9 @@ size_t ListFjmi::_jacobsthal(size_t n)
 
 size_t ListFjmi::_binarySearch(std::list<size_t> nums, size_t target)
 {
-    size_t lo = 0;
-    size_t mid;
-    size_t hi = nums.size() - 1;
+    int lo = 0;
+    int mid;
+    int hi = nums.size() - 1;
 
     while (lo <= hi)
     {
@@ -172,7 +175,7 @@ size_t ListFjmi::_binarySearch(std::list<size_t> nums, size_t target)
         std::advance(it, mid);
 
         if (target == *it)
-            throw std::exception();
+			  return (mid);
         else if (target < *it)
             hi = mid - 1;
         else

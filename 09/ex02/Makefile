@@ -6,21 +6,18 @@
 #    By: pforesti <pforesti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/06 11:49:25 by pforesti          #+#    #+#              #
-#    Updated: 2023/06/29 16:50:16 by pforesti         ###   ########.fr        #
+#    Updated: 2023/06/30 15:27:06 by pforesti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = 	main.cpp \
-		VectorFjmi.cpp \
-		VectorFjmi_sort.cpp \
-		ListFjmi.cpp \
-		ListFjmi_sort.cpp
+		PmergeMe.cpp
 
 
 OBJS = $(SRCS:.cpp=.o)
 
 C = c++
-CFLAGS = -g -Wall -Wextra -Werror -std=c++98
+CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 NAME = PmergeMe
 

@@ -15,9 +15,10 @@
 #include <sstream>
 #include <exception>
 
-#include "VectorFjmi.hpp"
-#include "ListFjmi.hpp"
+#include "PmergeMe.hpp"
+#include "PmergeMe.hpp"
 
+void    parse(PmergeMe & pmm, int ac, char *av[]);
 static inline int printError(const char* error);
 template<typename T>
 static inline bool isSorted(T array);
@@ -29,29 +30,32 @@ int main(int ac, char *av[])
     if (ac <= 2)
         return (printError("Not enough arguments"));
 
-    VectorFjmi    VectorFjmi;
-    ListFjmi    ListFjmi;
+    PmergeMe    pmm;
 	
     try {
-        for (int i = 1 ; i < ac ; i++)	
-        {
-            if (av[i][0] == '-')
-                throw std::runtime_error("Negative number");
-            size_t num = std::stoul(av[i]);
-            VectorFjmi.sequence.push_back(num);
-            ListFjmi.sequence.push_back(num);
-        }
-        print("Before: ", VectorFjmi.sequence);
-        VectorFjmi.sort();
-        ListFjmi.sort();
-        print("After: ", VectorFjmi.sequence);
-        VectorFjmi.printDuration();
-        ListFjmi.printDuration();
-        if (!isSorted(VectorFjmi.sequence) || !isSorted(ListFjmi.sequence))
+        parse(pmm, ac, av);
+        print("Before: ", pmm.vector_sequence);
+        pmm.sort();
+        print("After: ",pmm.vector_sequence);
+	    std::cout << "Time to process a range of " << pmm.vector_sequence.size() << " with std::vector: " << pmm.vector_duration << " s" << std::endl;
+	    std::cout << "Time to process a range of " << pmm.list_sequence.size() << " with std::list: " << pmm.list_duration << " s" << std::endl;
+        if (!isSorted(pmm.vector_sequence) || !isSorted(pmm.list_sequence))
             throw std::runtime_error("Sequence is not sorted");
     } catch (std::exception & e) {return(printError(e.what()));}
 
     return (0);
+}
+
+void    parse(PmergeMe & pmm, int ac, char *av[])
+{
+    for (int i = 1 ; i < ac ; i++)	
+    {
+        if (av[i][0] == '-')
+            throw std::runtime_error("Negative number");
+        size_t num = std::stoul(av[i]);
+        pmm.vector_sequence.push_back(num);
+        pmm.list_sequence.push_back(num);
+    }
 }
 
 static inline int printError(const char* error)
